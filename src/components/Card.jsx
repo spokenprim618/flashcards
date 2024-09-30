@@ -22,23 +22,25 @@ export default function Card() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [animationDirection, setAnimationDirection] = useState(null);
     const [showResult, setShowResult] = useState(false);
-    const [visibility, setVisibility] = useState(null);
+    const [visibilityCorrect, setVisibilityCorrect] = useState("hidden");
+    const [visibilityFalse, setVisibilityFalse] = useState("hidden");
+    const [again, setAgain] = useState(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (participantAnswer.toLowerCase() === answers[currentQuestionIndex].toLowerCase()) {
             setIsAnswerCorrect(true);
-        } else {
+        } if(participantAnswer.toLowerCase() != answers[currentQuestionIndex].toLowerCase()) {
             setIsAnswerCorrect(false);
         }
        if (isAnswerCorrect==true){
         setIsFlipped(true); // Flip the card after submitting
         setShowResult(true); // Show result immediately after submit
-        setVisibility("visible")
-       }else{
+        setVisibilityCorrect("visible")
+       }if(isAnswerCorrect==false){
         setIsFlipped(true); // Flip the card after submitting
         setShowResult(true); // Show result immediately after submit
-        setVisibility("hidden")
+        setVisibilityFalse("visible")
        }
 
     
@@ -58,6 +60,8 @@ export default function Card() {
             setCurrentQuestionIndex(newIndex);
             setParticipantAnswer('');
             setIsAnswerCorrect(null);
+            setVisibilityFalse("hidden");
+            setVisibilityCorrect("hidden");
             setTimeout(() => {
                 setIsFlipped(false)
                 setAnimationDirection(null); // Reset animation direction after delay
@@ -81,6 +85,8 @@ export default function Card() {
             setCurrentQuestionIndex(newIndex);
             setParticipantAnswer('');
             setIsAnswerCorrect(null);
+            setVisibilityFalse("hidden");
+            setVisibilityCorrect("hidden");
             setTimeout(() => {
                 setIsFlipped(false)
                 setAnimationDirection(null); // Reset animation direction after delay
@@ -89,6 +95,11 @@ export default function Card() {
         }, 500);
         
     };
+
+    const tryAgain = () =>{
+        setIsFlipped(false)
+       
+    }
 
     return (
         <div className='quiz-container'>
@@ -109,15 +120,14 @@ export default function Card() {
                         </form>
                     </div>
                     <div className={`back ${showResult ? 'show-result' : ''}`}>
-                    <div className="correct" style={`visibility:+${visibility}`}>
+                    <div className="correct" style={{visibility:`${visibilityCorrect}`}}>
                         <h1> You are correct</h1>
                         <h1>{answers[currentQuestionIndex]}</h1>
                             </div>
-                    <div className='incorrect' style={`visibility:+${visibility}`}>
+                    <div className='incorrect' style={{visibility:`${visibilityFalse}`}}>
                         <h1>You are incorrect. </h1>
-                        <button className="again"> Try again</button>
+                        <button className={`again ${isFlipped ? 'is-flipped' : ''}`} onClick={tryAgain}> Try again</button>
                     </div>
-                        <h1>{answers[currentQuestionIndex]}</h1>
                     </div>
                 </div>
             </div>

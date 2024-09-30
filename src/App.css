@@ -46,6 +46,7 @@
   z-index: 2; /* Ensure back is above front during flip */
 }
 
+
 .carousel-container {
   display: flex;
   flex-direction: column; /* Display cards and navigation vertically */
@@ -64,7 +65,7 @@
   margin-top: 20px; /* Space between cards and navigation */
 }
 
-.navigation button {
+.navigation button, .again  {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #007bff;
