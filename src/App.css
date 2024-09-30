@@ -1,0 +1,177 @@
+.card {
+  width: 800px;
+  height: 500px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  position: relative; /* Ensure relative positioning for children */
+  margin-bottom: 20px; /* Space between cards and navigation */
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%; /* Ensure full width for responsiveness */
+  height: 100%; /* Ensure full height for responsiveness */
+  border-radius: 8px;
+  backface-visibility: hidden;
+  transition: transform 0.5s, background-color 0.3s, opacity 0.6s; /* Add opacity transition */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.front {
+  background-color: blue;
+  transform: rotateX(0deg);
+ 
+
+}
+
+.back {
+  background-color: black;
+  transform: rotateX(180deg);
+  display: none; /* Initially hide the back side */
+}
+
+
+.card.is-flipped .front {
+  transform: rotateX(180deg);
+  z-index: 1; /* Ensure front is above back during flip */
+}
+
+.card.is-flipped .back {
+  display: flex; /* Show the back side when flipped */
+  transform: rotateX(0deg);
+  z-index: 2; /* Ensure back is above front during flip */
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column; /* Display cards and navigation vertically */
+  align-items: center; /* Center horizontally */
+  gap: 20px; /* Space between cards and navigation */
+}
+
+.carousel-item {
+  width: 100%; /* Adjust as needed */
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Space between cards and navigation */
+}
+
+.navigation button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+  background-color: #0056b3;
+}
+
+.navigation input[type="radio"] + label {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navigation input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.quiz-card.swipe-next-back {
+  animation: swipeNextBack 1s backwards;
+}
+
+.quiz-card.swipe-previous-back {
+  animation: swipePreviousBack 1s forwards;
+}
+
+@keyframes swipeNextBack {
+  0% {
+    transform: rotateX(0deg) translateX(0);
+    opacity: 1;
+  }
+  30%{
+    opacity: 0;
+  }
+  50% {
+    transform: rotateX(180deg) translateX(-80%);
+    
+  }
+  
+  100% {
+    transform: rotateX(180deg) translateX(-100%);
+    opacity: 0; /* Hide completely at the end */
+
+  }
+}
+
+@keyframes swipePreviousBack {
+  0% {
+    transform: rotateX(180deg) translateX(0);
+    opacity: 1;
+  }
+  30%{
+    opacity: 0;
+  }
+  50% {
+    transform: rotateX(180deg) translateX(80%);
+  }
+  100% {
+    transform: rotateX(180deg) translateX(100%);
+    opacity: 0; /* Hide completely at the end */
+
+  }
+}
+
+.quiz-card.swipe-next-front {
+  animation: swipeNextFront 1s backwards;
+}
+
+.quiz-card.swipe-previous-front {
+  animation: swipePreviousFront 1s forwards;
+}
+
+@keyframes swipeNextFront {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0; /* Keep visible till 80% */
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0; /* Hide completely at the end */
+  }
+}
+
+@keyframes swipePreviousFront {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0; /* Keep visible till 80% */
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0; /* Hide completely at the end */
+  }
+}
