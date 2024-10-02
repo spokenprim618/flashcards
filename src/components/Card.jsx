@@ -24,7 +24,6 @@ export default function Card() {
     const [showResult, setShowResult] = useState(false);
     const [visibilityCorrect, setVisibilityCorrect] = useState("hidden");
     const [visibilityFalse, setVisibilityFalse] = useState("hidden");
-    const [again, setAgain] = useState(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
